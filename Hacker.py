@@ -6,6 +6,8 @@ ID: 110457922
 Username: CORSY034
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
+
+
 class Hacker:
     def __init__(self):
         """
@@ -21,4 +23,3 @@ class Hacker:
         This method launches a data spike object.
         :return: void
         """
-

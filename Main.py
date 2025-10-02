@@ -10,9 +10,11 @@ from Asset import Asset
 from Rig import Rig
 from Hacker import Hacker
 
+
 def main():
     rig = Rig()
     print(rig.name)
+
 
 if __name__ == '__main__':
     main()
