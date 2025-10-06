@@ -13,10 +13,10 @@ class Hacker:
         """
         This class represents a hacker object.
         """
-        name = ""
-        inventory = []
-        trace_level = 0
-        blocked = False
+        self.__name = ""
+        self.__inventory = []
+        self.__trace_level = 0
+        self.__blocked = False
 
     def launch_data_spike(self):
         """

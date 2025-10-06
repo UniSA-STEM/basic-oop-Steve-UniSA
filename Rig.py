@@ -13,11 +13,11 @@ class Rig:
         """
         This class represents a rig object.
         """
-        self.name = ""
-        self.damage_counter = 0
-        self.broken_state = False
-        self.storage = []
-        self.upgrade_level = 0
+        self.__name = ""
+        self.__damage_counter = 0
+        self.__broken_state = False
+        self.__storage = []
+        self.__upgrade_level = 0
 
     def repair(self):
         """

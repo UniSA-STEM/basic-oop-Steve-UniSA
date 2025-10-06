@@ -13,6 +13,6 @@ class Asset:
         """
         This class represents a asset object.
         """
-        name = ""
-        description = ""
-        encrypted = False
+        self.__name = ""
+        self.__description = ""
+        self.__encrypted = False
