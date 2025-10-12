@@ -24,5 +24,13 @@ class Asset:
             raise ValueError("Invalid description")
 
     def __str__(self):
-        return_string = f"{self.__name}:{self.__description} {"Encrypted" if self.__encrypted else ""}"
+        return_string = f"{self.__name}: {self.__description} {"Encrypted" if self.__encrypted else ""}"
         return return_string
+
+    def encrypt(self):
+        self.__encrypted = True
+        print(f"Encrypted: {self.__name}")
+
+    def decrypt(self):
+        self.__encrypted = False
+        print(f"decrypted: {self.__name}")
