@@ -15,6 +15,9 @@ def main():
     asset = Asset("ss", "CryptoToken")
     print(asset)
 
+    hacker = Hacker()
+    print(hacker)
+
 
 if __name__ == '__main__':
     main()
