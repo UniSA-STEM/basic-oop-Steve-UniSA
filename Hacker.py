@@ -16,10 +16,14 @@ class Hacker:
         self.__name = ""
         self.__inventory = []
         self.__trace_level = 0
-        self.__blocked = False
+        self.__exposed = False
 
     def launch_data_spike(self):
         """
         This method launches a data spike object.
         :return: void
         """
+
+    def __str__(self):
+        return_string = f"{self.__name}\nTrace level:{self.__trace_level}\nInventory contents:"
+        return return_string

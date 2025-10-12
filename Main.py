@@ -12,8 +12,8 @@ from Hacker import Hacker
 
 
 def main():
-    rig = Rig()
-    print(rig.name)
+    asset = Asset("ss", "CryptoToken")
+    print(asset)
 
 
 if __name__ == '__main__':

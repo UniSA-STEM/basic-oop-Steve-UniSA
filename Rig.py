@@ -16,7 +16,7 @@ class Rig:
         self.__name = ""
         self.__damage_counter = 0
         self.__broken_state = False
-        self.__storage = []
+        self.__stored_assets = []
         self.__upgrade_level = 0
 
     def repair(self):
@@ -48,3 +48,13 @@ class Rig:
         This method checks whether the rig object is damaged or not.
         :return:
         """
+
+    def generate_asset(self):
+        """
+        This method generates a new asset.
+        :return:
+        """
+
+    def __str__(self):
+        return_string = f"{self.__name}\nCondition:{self.__condition}\nInventory contents:"
+        return return_string
