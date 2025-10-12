@@ -49,4 +49,6 @@ class Hacker:
 
     def __str__(self):
         return_string = f"{self.__name}\nTrace level:{self.__trace_level}\nInventory contents:"
+        for asset in self.__inventory:
+            return_string += f"\n{asset}"
         return return_string

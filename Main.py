@@ -15,7 +15,7 @@ def main():
     asset = Asset("ss", "CryptoToken")
     print(asset)
 
-    hacker = Hacker()
+    hacker = Hacker("NewHacker")
     print(hacker)
 
 
