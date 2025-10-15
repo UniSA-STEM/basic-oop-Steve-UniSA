@@ -16,12 +16,17 @@ class Hacker:
         This class represents a hacker object.
         """
         self.__name = name
+        self.__rig = None
         self.__inventory = [Asset("CryptoToken1", "CryptoToken")]
         self.__trace_level = 0
         self.__exposed = False
 
-    def acquire_rig(self):
-        pass
+    def acquire_rig(self, rig_name):
+        for asset in self.__inventory:
+            if asset.get_description() == "CryptoToken":
+                self.__inventory.remove(asset)
+                self.__rig = Rig(rig_name)
+
 
     def launch_attack(self, target_rig):
         """

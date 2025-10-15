@@ -10,14 +10,7 @@ from Asset import Asset
 from Rig import Rig
 from Hacker import Hacker
 
-
-def main():
-    asset = Asset("ss", "CryptoToken")
-    print(asset)
-
-    hacker = Hacker("NewHacker")
+if __name__ == "__main__":
+    hacker = Hacker("Hkr")
+    hacker.acquire_rig("Smoking")
     print(hacker)
-
-
-if __name__ == '__main__':
-    main()

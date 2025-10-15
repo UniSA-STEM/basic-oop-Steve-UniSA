@@ -21,11 +21,22 @@ class Asset:
             self.__description = description
             self.__encrypted = False
         else:
-            raise ValueError("Invalid description")
+            print(f"Invalid description")
 
-    def __str__(self):
-        return_string = f"{self.__name}: {self.__description} {"Encrypted" if self.__encrypted else ""}"
-        return return_string
+    def get_name(self):
+        return self.__name
+
+    def get_description(self):
+        return self.__description
+
+    def is_encrypted(self):
+        return self.__encrypted
+
+    def set_name(self, name):
+        self.__name = name
+
+    def set_description(self, description):
+        self.__description = description
 
     def encrypt(self):
         self.__encrypted = True
@@ -34,3 +45,7 @@ class Asset:
     def decrypt(self):
         self.__encrypted = False
         print(f"decrypted: {self.__name}")
+
+    def __str__(self):
+        return_string = f"{self.__name}: {self.__description} {"Encrypted" if self.__encrypted else ""}"
+        return return_string

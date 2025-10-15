@@ -9,11 +9,11 @@ This is my own work as defined by the University's Academic Misconduct Policy.
 
 
 class Rig:
-    def __init__(self):
+    def __init__(self, name):
         """
         This class represents a rig object.
         """
-        self.__name = ""
+        self.__name = name
         self.__damage_counter = 0
         self.__broken_state = False
         self.__stored_assets = []
