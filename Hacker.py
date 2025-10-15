@@ -21,12 +21,29 @@ class Hacker:
         self.__trace_level = 0
         self.__exposed = False
 
+    def get_name(self):
+        return self.__name
+
+    def get_trace_level(self):
+        return self.__trace_level
+
+    def get_exposed(self):
+        return self.__exposed
+
+    def set_name(self, name):
+        self.__name = name
+
+    def set_trace_level(self, trace_level):
+        self.__trace_level = trace_level
+
+    def set_exposed(self, exposed):
+        self.__exposed = exposed
+
     def acquire_rig(self, rig_name):
         for asset in self.__inventory:
             if asset.get_description() == "CryptoToken":
                 self.__inventory.remove(asset)
                 self.__rig = Rig(rig_name)
-
 
     def launch_attack(self, target_rig):
         """
@@ -53,7 +70,9 @@ class Hacker:
         pass
 
     def __str__(self):
-        return_string = f"{self.__name}\nTrace level:{self.__trace_level}\nInventory contents:"
+        return_string = (f"{self.__name}\nTrace level:{self.__trace_level}")
+        return_string += (f"\nRig:{self.__rig}")
+        return_string += (f"\nInventory contents:")
         for asset in self.__inventory:
             return_string += f"\n{asset}"
         return return_string

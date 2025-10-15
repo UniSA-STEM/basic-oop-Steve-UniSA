@@ -12,5 +12,6 @@ from Hacker import Hacker
 
 if __name__ == "__main__":
     hacker = Hacker("Hkr")
+    print(hacker)
     hacker.acquire_rig("Smoking")
     print(hacker)
