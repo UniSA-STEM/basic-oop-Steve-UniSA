@@ -9,7 +9,7 @@ This is my own work as defined by the University's Academic Misconduct Policy.
 
 
 class Asset:
-    def __init__(self, name, description):
+    def __init__(self, name : str, description : str):
         """
         This class represents a digital asset. Assets have a name, description, and a new attribute encrypted,
         which is a boolean. By default, assets are not encrypted.
@@ -23,49 +23,49 @@ class Asset:
         else:
             print(f"The asset {name} has an invalid description.")
 
-    def get_name(self):
+    def get_name(self) -> str:
         """
         This method returns the name of the asset.
         :return: void
         """
         return self.__name
 
-    def get_description(self):
+    def get_description(self) -> str:
         """
         This method returns the description of the asset.
         :return: void
         """
         return self.__description
 
-    def is_encrypted(self):
+    def is_encrypted(self) -> bool:
         """
         This method returns the encryption status if the asset.
         :return: void
         """
         return self.__encrypted
 
-    def set_name(self, name):
+    def set_name(self, name : str) -> None:
         """
         This method sets the name of the asset.
         :return: void
         """
         self.__name = name
 
-    def set_description(self, description):
+    def set_description(self, description : str) -> None:
         """
         This method sets the description of the asset.
         :return: void
         """
         self.__description = description
 
-    def set_encryption(self, encrypted):
+    def set_encryption(self, encrypted : bool) -> None:
         """
         This method encrypts the asset.
         :return: void
         """
         self.__encrypted = encrypted
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         The string conversion method returns the asset name, description and encryption status.
         :return: void
