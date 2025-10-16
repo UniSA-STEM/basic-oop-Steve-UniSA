@@ -22,21 +22,39 @@ class Hacker:
         self.__exposed = False
 
     def get_name(self):
+        """
+        This class returns the Hacker name.
+        """
         return self.__name
 
     def get_trace_level(self):
+        """
+        This class returns the Hacker trace level which is a measure of their notoriety.
+        """
         return self.__trace_level
 
     def get_exposed(self):
+        """
+        This class returns whether the Hacker has been exposed.
+        """
         return self.__exposed
 
     def set_name(self, name):
+        """
+        This class sets the Hacker name.
+        """
         self.__name = name
 
     def set_trace_level(self, trace_level):
+        """
+        This class sets the Hacker trace level.
+        """
         self.__trace_level = trace_level
 
     def set_exposed(self, exposed):
+        """
+        This class sets whether the Hacker has been exposed.
+        """
         self.__exposed = exposed
 
     def acquire_rig(self, rig_name):
@@ -52,6 +70,9 @@ class Hacker:
         """
 
     def extract_assets(self, target_rig):
+        """
+        This class extracts assets from a broken / hacker rig.
+        """
         pass
 
     def encrypt_asset(self, asset_name):
@@ -73,12 +94,21 @@ class Hacker:
                 asset.decrypt()
 
     def store_asset(self, asset_name):
+        """
+        This class stores an asset in the Hacker inventory.
+        """
         pass
 
     def retrieve_asset(self, asset_name):
+        """
+        This class retrieves an asset from the Hacker inventory.
+        """
         pass
 
     def scan_inventory(self):
+        """
+        This class scans the Hacker inventory.
+        """
         pass
 
     def __str__(self):
