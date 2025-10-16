@@ -11,7 +11,7 @@ This is my own work as defined by the University's Academic Misconduct Policy.
 class Rig:
     def __init__(self, name):
         """
-        This class represents a rig object.
+        This class represents a Rig object.
         """
         self.__name = name
         self.__damage_counter = 0
@@ -20,12 +20,21 @@ class Rig:
         self.__upgrade_level = 0
 
     def get_name(self):
+        """
+        This class returns the Rig name.
+        """
         return self.__name
 
     def get_damage_count(self):
+        """
+        This class returns the Rig damage level.
+        """
         return self.__damage_counter
 
     def get_broken_state(self):
+        """
+        This class returns the state of the Rig.
+        """
         return self.__broken_state
 
     def get_stored_assets(self):
