@@ -64,7 +64,10 @@ class Asset:
         This method encrypts the asset.
         :return: void
         """
-        self.__encrypted = encrypted
+        if isinstance(encrypted, bool):
+            self.__encrypted = encrypted
+        else:
+            print(f"The encryption status of {encrypted} is not valid.")
 
     def __str__(self) -> str:
         """

@@ -11,3 +11,10 @@ from Asset import Asset
 if __name__ == "__main__":
     asset = Asset("CryptoToken")
     asset.encryption = 1
+    print(asset)
+    asset.encryption = 3
+    print(asset)
+    asset.encryption = True
+    print(asset)
+    asset.encryption = False
+    print(asset)
