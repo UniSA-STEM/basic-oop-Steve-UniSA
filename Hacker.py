@@ -55,10 +55,22 @@ class Hacker:
         pass
 
     def encrypt_asset(self, asset_name):
-        pass
+        """
+        This method encrypts the asset object.
+        :return: void
+        """
+        for asset in self.__inventory:
+            if asset.get_name() == asset_name:
+                asset.encrypt()
 
     def decrypt_asset(self, asset_name):
-        pass
+        """
+        This method decrypts the asset object.
+        :return: void
+        """
+        for asset in self.__inventory:
+            if asset.get_name() == asset_name:
+                asset.decrypt()
 
     def store_asset(self, asset_name):
         pass

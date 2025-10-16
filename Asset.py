@@ -21,31 +21,59 @@ class Asset:
             self.__description = description
             self.__encrypted = False
         else:
-            print(f"Invalid description")
+            print(f"The asset {name} has an invalid description.")
 
     def get_name(self):
+        """
+        This method returns the name of the asset.
+        :return: void
+        """
         return self.__name
 
     def get_description(self):
+        """
+        This method returns the description of the asset.
+        :return: void
+        """
         return self.__description
 
     def is_encrypted(self):
+        """
+        This method returns the encryption status if the asset.
+        :return: void
+        """
         return self.__encrypted
 
     def set_name(self, name):
+        """
+        This method sets the name of the asset.
+        :return: void
+        """
         self.__name = name
 
     def set_description(self, description):
+        """
+        This method sets the description of the asset.
+        :return: void
+        """
         self.__description = description
 
-    def encrypt(self):
-        self.__encrypted = True
-        print(f"Encrypted: {self.__name}")
-
-    def decrypt(self):
-        self.__encrypted = False
-        print(f"decrypted: {self.__name}")
+    def set_encryption(self, encrypted):
+        """
+        This method encrypts the asset.
+        :return: void
+        """
+        self.__encrypted = encrypted
 
     def __str__(self):
+        """
+        The string conversion method returns the asset name, description and encryption status.
+        :return: void
+        """
         return_string = f"{self.__name}: {self.__description} {"Encrypted" if self.__encrypted else ""}"
         return return_string
+
+    # Properties
+    name = property(get_name, set_name)
+    description = property(get_description, set_description)
+    encryption = property(is_encrypted, set_encryption)
