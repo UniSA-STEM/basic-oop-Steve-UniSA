@@ -26,42 +26,42 @@ class Asset:
         else:
             print(f"The asset {name} has an invalid description.")
 
-    def get_name(self) -> str:
+    def __get_name(self) -> str:
         """
         This method returns the name of the asset.
         :return: void
         """
         return self.__name
 
-    def get_description(self) -> str:
+    def __get_description(self) -> str:
         """
         This method returns the description of the asset.
         :return: void
         """
         return self.__description
 
-    def is_encrypted(self) -> bool:
+    def __is_encrypted(self) -> bool:
         """
         This method returns the encryption status if the asset.
         :return: void
         """
         return self.__encrypted
 
-    def set_name(self, name: str) -> None:
+    def __set_name(self, name: str) -> None:
         """
         This method sets the name of the asset.
         :return: void
         """
         self.__name = name
 
-    def set_description(self, description: str) -> None:
+    def __set_description(self, description: str) -> None:
         """
         This method sets the description of the asset.
         :return: void
         """
         self.__description = description
 
-    def set_encryption(self, encrypted: bool) -> None:
+    def __set_encryption(self, encrypted: bool) -> None:
         """
         This method encrypts the asset.
         :return: void
@@ -77,6 +77,6 @@ class Asset:
         return return_string
 
     # Properties
-    name = property(get_name, set_name)
-    description = property(get_description, set_description)
-    encryption = property(is_encrypted, set_encryption)
+    name = property(__get_name, __set_name)
+    description = property(__get_description, __set_description)
+    encryption = property(__is_encrypted, __set_encryption)

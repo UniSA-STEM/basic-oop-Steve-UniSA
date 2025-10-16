@@ -10,5 +10,6 @@ from Asset import Asset
 
 if __name__ == "__main__":
     cc = Asset("CryptoToken")
-    print(cc.get_name())
+    print(cc.name)
+    cc.name = "Data Spike"
     print(cc)
