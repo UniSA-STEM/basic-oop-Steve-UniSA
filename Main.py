@@ -6,10 +6,8 @@ ID: 110457922
 Username: CORSY034
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
-from Hacker import Hacker
+from Asset import Asset
 
 if __name__ == "__main__":
-    hacker = Hacker("CrazyHackerName")
-    print(hacker)
-    hacker.acquire_rig("Test")
-    print(hacker)
+    asset = Asset("CryptoToken")
+    asset.encryption = 1

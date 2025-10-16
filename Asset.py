@@ -24,7 +24,7 @@ class Asset:
             self.__description = self.__asset_descriptions[self.__valid_asset_names.index(name)]
             self.__encrypted = False
         else:
-            print(f"The asset {name} has an invalid description.")
+            print(f"The asset {name} is not a valid asset type.")
 
     def __get_name(self) -> str:
         """
@@ -52,14 +52,12 @@ class Asset:
         This method sets the name of the asset.
         :return: void
         """
-        self.__name = name
-
-    def __set_description(self, description: str) -> None:
-        """
-        This method sets the description of the asset.
-        :return: void
-        """
-        self.__description = description
+        if name in self.__valid_asset_names:
+            self.__name = name
+            self.__description = self.__asset_descriptions[self.__valid_asset_names.index(name)]
+            self.__encrypted = False
+        else:
+            print(f"The asset {name} is not a valid asset type.")
 
     def __set_encryption(self, encrypted: bool) -> None:
         """
@@ -78,5 +76,5 @@ class Asset:
 
     # Properties
     name = property(__get_name, __set_name)
-    description = property(__get_description, __set_description)
+    description = property(__get_description)
     encryption = property(__is_encrypted, __set_encryption)

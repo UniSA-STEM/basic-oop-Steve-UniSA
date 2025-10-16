@@ -81,8 +81,8 @@ class Hacker:
         :return: void
         """
         for asset in self.__inventory:
-            if asset.get_name() == asset_name:
-                asset.encrypt()
+            if asset.name == asset_name:
+                asset.encryption = True
 
     def decrypt_asset(self, asset_name):
         """
