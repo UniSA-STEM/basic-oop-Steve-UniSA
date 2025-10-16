@@ -9,14 +9,15 @@ This is my own work as defined by the University's Academic Misconduct Policy.
 
 
 class Asset:
-    def __init__(self, name : str):
+    def __init__(self, name: str):
         """
         This class represents a digital asset. Assets have a name, description, and a new attribute encrypted,
         which is a boolean. By default, assets are not encrypted.
         """
         self.__valid_asset_names = ["CryptoToken", "Data Spike", "Removable Drive", "Security Chip", "Hardware Patch"]
-        self.__asset_descriptions = ["Used to acquire or repair rigs.", "Used in battles.", "Found in rigs and used for extraction.",
-         "Used to encrypt or decrypt assets.", "Used to upgrade rigs."]
+        self.__asset_descriptions = ["Used to acquire or repair rigs.", "Used in battles.",
+                                     "Found in rigs and used for extraction.",
+                                     "Used to encrypt or decrypt assets.", "Used to upgrade rigs."]
         # If the asset description is in the list of valid descriptions, add the asset otherwise raise an error.
         if name in self.__valid_asset_names:
             self.__name = name
@@ -46,21 +47,21 @@ class Asset:
         """
         return self.__encrypted
 
-    def set_name(self, name : str) -> None:
+    def set_name(self, name: str) -> None:
         """
         This method sets the name of the asset.
         :return: void
         """
         self.__name = name
 
-    def set_description(self, description : str) -> None:
+    def set_description(self, description: str) -> None:
         """
         This method sets the description of the asset.
         :return: void
         """
         self.__description = description
 
-    def set_encryption(self, encrypted : bool) -> None:
+    def set_encryption(self, encrypted: bool) -> None:
         """
         This method encrypts the asset.
         :return: void
