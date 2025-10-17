@@ -7,10 +7,10 @@ Username: CORSY034
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
 from Asset import Asset
-#from Hacker import Hacker
+# from Hacker import Hacker
 
 class Rig:
-    def __init__(self, name : str)  -> None:
+    def __init__(self, name: str) -> None:
         """
         This class represents a Rig object.
         :return: void
@@ -39,7 +39,7 @@ class Rig:
         """
         return self.__broken_state
 
-    def __get_stored_assets(self):
+    def __get_stored_assets(self) -> list[Asset]:
         """
         This class returns the Assets stored by the Rig.
         """
@@ -51,14 +51,14 @@ class Rig:
         """
         return self.__upgrade_level
 
-    def __set_name(self, name : str) -> None:
+    def __set_name(self, name: str) -> None:
         """
         This class updates the name of the Rig.
         :return: void
         """
         self.__name = name
 
-    def store_asset(self, asset : Asset) -> None:
+    def store_asset(self, asset: Asset) -> None:
         """
         This method stores an Asset in the rig object.
         :return: void
@@ -66,7 +66,7 @@ class Rig:
         if isinstance(asset, Asset):
             self.__stored_assets.append(asset)
 
-    def repair(self, asset : Asset) -> None:
+    def repair(self, asset: Asset) -> None:
         """
         This method repairs the rig object.
         :return: void
@@ -95,10 +95,11 @@ class Rig:
 
     def generate_asset(self) -> None:
         """
-        This method generates a new asset.
+        This method generates a random new asset and stores it in the rig object.
         :return: void
         """
-        pass
+        random_asset = Asset("Random Asset")
+        self.__stored_assets.append(random_asset)
 
     def __str__(self) -> str:
         """
@@ -113,7 +114,7 @@ class Rig:
             return_string += f"\n{asset}"
         return return_string
 
-    #Properties
+    # Properties
     """
     Getters and Setters are set to private. The class can only be accessed through the class properties and methods.
     """

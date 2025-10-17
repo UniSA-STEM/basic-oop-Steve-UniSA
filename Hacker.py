@@ -121,12 +121,12 @@ class Hacker:
             return_string += f"\n{asset}"
         return return_string
 
-    #Properties
+    # Properties
     """
     Getters and Setters are set to private. The class can only be accessed through the class properties and methods.
     """
     name = property(__get_name, __set_name)
     trace_level = property(__get_trace_level, __set_trace_level)
     exposed = property(__get_exposed, __set_exposed)
-    #rig = property(__get_description)
-    #inventory = property(__get_encrypted, __set_encrypted)
+    # rig = property(__get_description)
+    # inventory = property(__get_encrypted, __set_encrypted)

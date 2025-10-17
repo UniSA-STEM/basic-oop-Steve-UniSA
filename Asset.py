@@ -6,7 +6,7 @@ ID: 110457922
 Username: CORSY034
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
-
+import random
 
 class Asset:
     def __init__(self, name: str):
@@ -49,11 +49,20 @@ class Asset:
         :param name: str
         :return: void
         """
-        if name in self.__valid_asset_names:
+        if name == "Random Asset":
+            random_asset_name = self.__get_random_name()
+            self.__name = random_asset_name
+            self.__description = self.__asset_descriptions[self.__valid_asset_names.index(random_asset_name)]
+        elif name in self.__valid_asset_names:
             self.__name = name
             self.__description = self.__asset_descriptions[self.__valid_asset_names.index(name)]
         else:
             print(f"The asset {name} is not a valid asset type.")
+
+    def __get_random_name(self):
+        asset_name_index = random.randint(0,len(self.__valid_asset_names)-1)
+        asset_name = self.__valid_asset_names[asset_name_index]
+        return asset_name
 
     def __set_encrypted(self, encrypted: bool) -> None:
         """

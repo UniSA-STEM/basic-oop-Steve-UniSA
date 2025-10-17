@@ -12,6 +12,6 @@ from Rig import Rig
 
 if __name__ == "__main__":
     rig = Rig("CrazyRig")
-    print(rig)
-    rig.upgrade()
+    for num in range(1, 110):
+        rig.generate_asset()
     print(rig)
