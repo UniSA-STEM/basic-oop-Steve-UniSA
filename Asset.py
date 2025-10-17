@@ -14,54 +14,51 @@ class Asset:
         This class represents a digital asset. Assets have a name, description, and a new attribute encrypted,
         which is a boolean. By default, assets are not encrypted.
         """
+        # If the asset description is in the list of valid descriptions, add the asset otherwise raise an error.
         self.__valid_asset_names = ["CryptoToken", "Data Spike", "Removable Drive", "Security Chip", "Hardware Patch"]
         self.__asset_descriptions = ["Used to acquire or repair rigs.", "Used in battles.",
                                      "Found in rigs and used for extraction.",
                                      "Used to encrypt or decrypt assets.", "Used to upgrade rigs."]
-        # If the asset description is in the list of valid descriptions, add the asset otherwise raise an error.
-        if name in self.__valid_asset_names:
-            self.__name = name
-            self.__description = self.__asset_descriptions[self.__valid_asset_names.index(name)]
-            self.__encrypted = False
-        else:
-            print(f"The asset {name} is not a valid asset type.")
+        self.name = name
+        self.encrypted = False
 
     def __get_name(self) -> str:
         """
-        This method returns the name of the asset.
-        :return: void
+        This method returns the name of the asset. This method is private and can only be accessed by the class properties.
+        :return: str
         """
         return self.__name
 
     def __get_description(self) -> str:
         """
-        This method returns the description of the asset.
-        :return: void
+        This method returns the description of the asset. This method is private and can only be accessed by the class properties.
+        :return: str
         """
         return self.__description
 
-    def __is_encrypted(self) -> bool:
+    def __get_encrypted(self) -> bool:
         """
-        This method returns the encryption status if the asset.
-        :return: void
+        This method returns the encryption status if the asset. This method is private and can only be accessed by the class properties.
+        :return: bool
         """
         return self.__encrypted
 
     def __set_name(self, name: str) -> None:
         """
-        This method sets the name of the asset.
+        This method sets the name of the asset. This method is private and can only be accessed by the class properties.
+        :param name: str
         :return: void
         """
         if name in self.__valid_asset_names:
             self.__name = name
             self.__description = self.__asset_descriptions[self.__valid_asset_names.index(name)]
-            self.__encrypted = False
         else:
             print(f"The asset {name} is not a valid asset type.")
 
-    def __set_encryption(self, encrypted: bool) -> None:
+    def __set_encrypted(self, encrypted: bool) -> None:
         """
-        This method encrypts the asset.
+        This method encrypts the asset. This method is private and can only be accessed by the class properties.
+        :param encrypted: bool
         :return: void
         """
         if isinstance(encrypted, bool):
@@ -74,10 +71,20 @@ class Asset:
         The string conversion method returns the asset name, description and encryption status.
         :return: void
         """
-        return_string = f"{self.__name}: {self.__description} {"Encrypted" if self.__encrypted else ""}"
-        return return_string
+        return f"{self.__name}: {self.__description} {"Encrypted" if self.__encrypted else ""}"
+
+    def __eq__(self, other) -> bool:
+        """
+        Define equality comparison for objects of the asset class.
+        :param other: Asset object
+        :return: bool
+        """
+        return self.__name == other.name and self.__encrypted == other.encrypted
 
     # Properties
+    """
+    Getters and Setters are set to private. The class can only be accessed through the class properties.
+    """
     name = property(__get_name, __set_name)
     description = property(__get_description)
-    encryption = property(__is_encrypted, __set_encryption)
+    encrypted = property(__get_encrypted, __set_encrypted)
