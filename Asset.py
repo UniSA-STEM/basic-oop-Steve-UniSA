@@ -69,7 +69,7 @@ class Asset:
     def __str__(self) -> str:
         """
         The string conversion method returns the asset name, description and encryption status.
-        :return: void
+        :return: str
         """
         return f"{self.__name}: {self.__description} {"Encrypted" if self.__encrypted else ""}"
 
@@ -83,7 +83,7 @@ class Asset:
 
     # Properties
     """
-    Getters and Setters are set to private. The class can only be accessed through the class properties.
+    Getters and Setters are set to private. The class can only be accessed through the class properties and methods.
     """
     name = property(__get_name, __set_name)
     description = property(__get_description)

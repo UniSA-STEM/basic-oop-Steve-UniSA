@@ -6,96 +6,119 @@ ID: 110457922
 Username: CORSY034
 This is my own work as defined by the University's Academic Misconduct Policy.
 """
-
+from Asset import Asset
+#from Hacker import Hacker
 
 class Rig:
-    def __init__(self, name):
+    def __init__(self, name : str)  -> None:
         """
         This class represents a Rig object.
+        :return: void
         """
-        self.__name = name
+        self.name = name
         self.__damage_counter = 0
         self.__broken_state = False
-        self.__stored_assets = []
+        self.__stored_assets = [Asset("Data Spike"), Asset("Data Spike")]
         self.__upgrade_level = 0
 
-    def get_name(self):
+    def __get_name(self) -> str:
         """
         This class returns the Rig name.
         """
         return self.__name
 
-    def get_damage_count(self):
+    def __get_damage_count(self) -> int:
         """
         This class returns the Rig damage level.
         """
         return self.__damage_counter
 
-    def get_broken_state(self):
+    def __get_broken_state(self) -> bool:
         """
-        This class returns the state of the Rig.
+        This class returns whether the Rig is broken or not.
         """
         return self.__broken_state
 
-    def get_stored_assets(self):
+    def __get_stored_assets(self):
+        """
+        This class returns the Assets stored by the Rig.
+        """
         return self.__stored_assets
 
-    def get_upgrade_level(self):
+    def __get_upgrade_level(self) -> int:
+        """
+        This class returns the upgrade level of the Rig.
+        """
         return self.__upgrade_level
 
-    def set_name(self, name):
+    def __set_name(self, name : str) -> None:
+        """
+        This class updates the name of the Rig.
+        :return: void
+        """
         self.__name = name
 
-    def set_damage_count(self, damage_count):
-        self.__damage_counter = damage_count
+    def store_asset(self, asset : Asset) -> None:
+        """
+        This method stores an Asset in the rig object.
+        :return: void
+        """
+        if isinstance(asset, Asset):
+            self.__stored_assets.append(asset)
 
-    def set_broken_state(self, broken_state):
-        self.__broken_state = broken_state
-
-    def set_stored_assets(self, stored_assets):
-        self.__stored_assets = stored_assets
-
-    def set_upgrade_level(self, upgrade_level):
-        self.__upgrade_level = upgrade_level
-
-    def repair(self):
+    def repair(self, asset : Asset) -> None:
         """
         This method repairs the rig object.
         :return: void
         """
-        if self.damage_counter > 0:
-            self.damage_counter = 0
-            self.broken_state = False
-        else:
-            print("No repair is needed")
+        if isinstance(asset, Asset):
+            if asset.name == "CryptoToken":
+                if self.__damage_counter > 0:
+                    self.__damage_counter = 0
+                    self.__broken_state = False
+                else:
+                    print("No repair is needed")
 
-    def upgrade(self):
+    def upgrade(self) -> None:
         """
         This method upgrades the rig object.
         :return: void
         """
         self.__upgrade_level += 1
 
-    def hit(self):
+    def hit(self) -> None:
         """
         This method records damage to the rig object.
         :return: void
         """
-        self.damage_counter += 1
+        self.__damage_counter += 1
 
-    def condition(self):
-        """
-        This method checks whether the rig object is damaged or not.
-        :return:
-        """
-        return self.__damage_counter
-
-    def generate_asset(self):
+    def generate_asset(self) -> None:
         """
         This method generates a new asset.
-        :return:
+        :return: void
         """
+        pass
 
-    def __str__(self):
-        return_string = f"{self.__name}\nCondition:"
+    def __str__(self) -> str:
+        """
+        The string conversion method returns the rig name and details.
+        :return: str
+        """
+        return_string = f"{self.__name}\nDamage count:{self.damage_count}"
+        return_string += f"\nBroken state:{self.broken_state}"
+        return_string += f"\nUpgrade level:{self.upgrade_level}"
+        return_string += f"\nStored assets:"
+        for asset in self.stored_assets:
+            return_string += f"\n{asset}"
         return return_string
+
+    #Properties
+    """
+    Getters and Setters are set to private. The class can only be accessed through the class properties and methods.
+    """
+    name = property(__get_name, __set_name)
+    damage_count = property(__get_damage_count)
+    broken_state = property(__get_broken_state)
+    stored_assets = property(__get_stored_assets)
+    upgrade_level = property(__get_upgrade_level)

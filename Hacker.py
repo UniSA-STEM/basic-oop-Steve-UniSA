@@ -64,13 +64,6 @@ class Hacker:
                 self.__inventory.remove(asset)
                 self.__rig = Rig(rig_name)
 
-    def launch_attack(self, target_rig):
-        """
-        This method launches a data spike object.
-        :return: void
-        """
-        pass
-
     def encrypt_asset(self, asset_name):
         """
         This method encrypts the asset object.
@@ -113,6 +106,13 @@ class Hacker:
         """
         pass
 
+    def launch_attack(self, target_rig):
+        """
+        This method launches a data spike object.
+        :return: void
+        """
+        pass
+
     def __str__(self):
         return_string = (f"{self.__name}\nTrace level:{self.__trace_level}")
         return_string += (f"\nRig:{self.__rig}")
@@ -123,7 +123,7 @@ class Hacker:
 
     #Properties
     """
-    Getters and Setters are set to private. The class can only be accessed through the class properties.
+    Getters and Setters are set to private. The class can only be accessed through the class properties and methods.
     """
     name = property(__get_name, __set_name)
     trace_level = property(__get_trace_level, __set_trace_level)
