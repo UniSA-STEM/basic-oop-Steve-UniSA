@@ -73,26 +73,26 @@ class Hacker:
         else:
             print(f"Hacker exposed must be a boolean.")
 
-    def acquire_rig(self, rig : Rig=None) -> None:
+    def acquire_rig(self, rig) -> None:
         # Check that this hacker doesn't already have a rig
-        if isinstance(rig, Rig) or rig is None:
+        if self.__rig is None:
             crypto_token = None
             for asset in self.__inventory:
-               if asset.name == "CryptoToken":
+                if asset.name == "CryptoToken":
                     crypto_token = asset
             if crypto_token is not None:
-                if self.__rig is None:
-                    if rig is None:
-                        self.__rig = Rig("Some weird name")
-                    else:
-                        self.__rig = rig
+                if isinstance(rig, Rig):
+                    self.__rig = rig
+                    self.__inventory.remove(crypto_token)
+                elif isinstance(rig, str):
+                    self.__rig = Rig(rig)
                     self.__inventory.remove(crypto_token)
                 else:
-                    print(f"You already have a Rig activated.")
+                    print(f"The rig could not be activated.")
             else:
                 print(f"You do not have sufficient CryptoTokens.")
         else:
-            print(f"The rig could not be activated.")
+            print(f"You already have a Rig activated.")
 
     def encrypt_asset(self, asset: Asset) -> None:
         """
@@ -171,7 +171,7 @@ class Hacker:
             print(f"The Asset name must be a string.")
             return None
 
-    def launch_attack(self, target_rig : Rig) -> None:
+    def launch_attack(self, target_rig: Rig) -> None:
         """
         This method launches a data spike object.
         :param target_rig:
