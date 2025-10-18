@@ -49,17 +49,24 @@ class Asset:
         :param name: str
         :return: void
         """
-        if name == "Random Asset":
-            random_asset_name = self.__get_random_name()
-            self.__name = random_asset_name
-            self.__description = self.__asset_descriptions[self.__valid_asset_names.index(random_asset_name)]
-        elif name in self.__valid_asset_names:
-            self.__name = name
-            self.__description = self.__asset_descriptions[self.__valid_asset_names.index(name)]
+        if isinstance(name, str):
+            if name == "Random Asset":
+                random_asset_name = self.__get_random_name()
+                self.__name = random_asset_name
+                self.__description = self.__asset_descriptions[self.__valid_asset_names.index(random_asset_name)]
+            elif name in self.__valid_asset_names:
+                self.__name = name
+                self.__description = self.__asset_descriptions[self.__valid_asset_names.index(name)]
+            else:
+                print(f"The asset {name} is not a valid asset type.")
         else:
-            print(f"The asset {name} is not a valid asset type.")
+            print(f"Hacker name must be a string.")
 
-    def __get_random_name(self):
+    def __get_random_name(self) -> str:
+        """
+        This method returns a random Asset name and is used to generate a random Asset.
+        :return: str
+        """
         asset_name_index = random.randint(0,len(self.__valid_asset_names)-1)
         asset_name = self.__valid_asset_names[asset_name_index]
         return asset_name
