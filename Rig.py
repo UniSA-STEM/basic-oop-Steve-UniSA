@@ -16,9 +16,9 @@ class Rig:
         :return: void
         """
         self.name = name
-        self.__damage_counter = 0
+        self.__damage_count = 0
         self.__broken_state = False
-        self.__stored_assets = [Asset("Data Spike"), Asset("Data Spike"), Asset("Removable Drive")]
+        self.__storage = [Asset("Data Spike"), Asset("Data Spike"), Asset("Removable Drive")]
         self.__upgrade_level = 0
 
     def __get_name(self) -> str:
@@ -31,7 +31,19 @@ class Rig:
         """
         This method returns the Rig damage level.
         """
-        return self.__damage_counter
+        return self.__damage_count
+
+    def __get_condition(self) -> str:
+        """
+        This method returns the Rig condition.
+        """
+        if self.damage_count == 0:
+            condition = "Pristine (Level 2)"
+        elif self.damage_count == 1:
+            condition = "Damaged (Level 1)"
+        else:
+            condition = "Broken (Level 0)"
+        return condition
 
     def __get_broken_state(self) -> bool:
         """
@@ -43,7 +55,7 @@ class Rig:
         """
         This method returns the Assets stored by the Rig.
         """
-        return self.__stored_assets
+        return self.__storage
 
     def __get_upgrade_level(self) -> int:
         """
@@ -59,39 +71,37 @@ class Rig:
         if isinstance(name, str):
             self.__name = name
 
+    def __set_broken_state(self, broken_state: bool) -> None:
+        """
+        This method updates the broken state of the Rig.
+        :return: void
+        """
+        if isinstance(broken_state, bool):
+            self.__broken_state = broken_state
+
+    def __set_damage_count(self, damage_count: int) -> None:
+        """
+        This method updates the broken state of the Rig.
+        :return: void
+        """
+        if isinstance(damage_count, int):
+            self.__damage_count = damage_count
+
     def store_asset(self, asset: Asset) -> None:
         """
         This method stores an Asset in the rig object.
         :return: void
         """
         if isinstance(asset, Asset):
-            self.__stored_assets.append(asset)
+            self.__storage.append(asset)
 
-    def remove_asset(self, asset: Asset) -> None:
+    def release_asset(self, asset: Asset) -> None:
         """
         This method stores an Asset in the rig object.
         :return: void
         """
         if isinstance(asset, Asset):
-            self.__stored_assets.remove(asset)
-
-    def repair(self, asset: Asset) -> None:
-        """
-        This method repairs the rig object.
-        :return: void
-        """
-        if isinstance(asset, Asset):
-            crypto_token = None
-            for asset in self.stored_assets:
-               if asset.name == "CryptoToken":
-                    crypto_token = asset
-            if crypto_token is not None:
-                if self.__damage_counter > 0:
-                    self.__damage_counter = 0
-                    self.__broken_state = False
-                    self.__stored_assets.remove(crypto_token)
-                else:
-                    print("No repair is needed")
+            self.__storage.remove(asset)
 
     def upgrade(self) -> None:
         """
@@ -99,19 +109,29 @@ class Rig:
         :return: void
         """
         hardware_patch = None
-        for asset in self.stored_assets:
+        for asset in self.storage:
             if asset.name == "Hardware Patch":
                 hardware_patch = asset
-            if hardware_patch is not None:
-                self.__upgrade_level += 1
-                self.__stored_assets.remove(hardware_patch)
+        if hardware_patch:
+            self.__upgrade_level += 1
+            self.__storage.remove(hardware_patch)
+        else:
+            print(f"A Hardware Patch is required to perform an upgrade\n")
 
     def hit(self) -> None:
         """
         This method records damage to the rig object.
         :return: void
         """
-        self.__damage_counter += 1
+        self.damage_count += 1
+
+    def repair(self) -> None:
+        """
+        This method repairs the rig object.
+        :return: void
+        """
+        self.damage_count = 0
+        self.broken_state = False
 
     def generate_asset(self) -> None:
         """
@@ -126,12 +146,13 @@ class Rig:
         The string conversion method returns the rig name and details.
         :return: str
         """
-        return_string = f"{self.__name}\nDamage count:{self.damage_count}"
-        return_string += f"\nBroken state:{self.broken_state}"
-        return_string += f"\nUpgrade level:{self.upgrade_level}"
-        return_string += f"\nStored assets:"
-        for asset in self.stored_assets:
-            return_string += f"\n{asset}"
+        return_string = f"Rig name: {self.__name}"
+        return_string += f"\nCondition: {self.condition}"
+        return_string += f"\nUpgrade level: {self.upgrade_level}"
+        return_string += f"\nStored assets: "
+        for asset in self.storage:
+            return_string += f"\n\t{asset}"
+        return_string += f"\n"
         return return_string
 
     # Properties
@@ -139,7 +160,8 @@ class Rig:
     Getters and Setters are set to private. The class can only be accessed through the class properties and methods.
     """
     name = property(__get_name, __set_name)
-    damage_count = property(__get_damage_count)
-    broken_state = property(__get_broken_state)
-    stored_assets = property(__get_stored_assets)
+    damage_count = property(__get_damage_count, __set_damage_count)
+    broken_state = property(__get_broken_state, __set_broken_state)
+    storage = property(__get_stored_assets)
     upgrade_level = property(__get_upgrade_level)
+    condition = property(__get_condition)

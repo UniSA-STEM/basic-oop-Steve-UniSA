@@ -34,6 +34,12 @@ class Hacker:
         """
         return self.__rig
 
+    def __get_inventory(self) -> list[Asset]:
+        """
+        This method returns the Hacker's inventory.
+        """
+        return self.__inventory
+
     def __get_trace_level(self) -> int:
         """
         This method returns the Hacker trace level which is a measure of their notoriety.
@@ -73,6 +79,29 @@ class Hacker:
         else:
             print(f"Hacker exposed must be a boolean.")
 
+    def add_asset(self, asset: Asset) -> None:
+        """
+        This method sets whether the Hacker has been exposed.
+        """
+        if isinstance(asset, Asset):
+            self.__inventory.append(asset)
+        else:
+            print(f"Not a valid asset.")
+
+    def increase_trace_level(self) -> None:
+        """
+        This method increases the Hacker trace level by one point.
+        """
+        current_trace_level = self.trace_level
+        self.trace_level = current_trace_level + 1
+
+    def decrease_trace_level(self) -> None:
+        """
+        This method decreases the Hacker trace level by one point.
+        """
+        current_trace_level = self.trace_level
+        self.trace_level = current_trace_level - 1
+
     def acquire_rig(self, rig) -> None:
         # Check that this hacker doesn't already have a rig
         if self.__rig is None:
@@ -84,9 +113,11 @@ class Hacker:
                 if isinstance(rig, Rig):
                     self.__rig = rig
                     self.__inventory.remove(crypto_token)
+                    print(f"The rig {rig.name} has been activated.")
                 elif isinstance(rig, str):
                     self.__rig = Rig(rig)
                     self.__inventory.remove(crypto_token)
+                    print(f"The rig {self.__rig.name} has been activated.")
                 else:
                     print(f"The rig could not be activated.")
             else:
@@ -94,61 +125,71 @@ class Hacker:
         else:
             print(f"You already have a Rig activated.")
 
-    def encrypt_asset(self, asset: Asset) -> None:
+    def encrypt_asset(self, asset_name: str) -> None:
         """
         This method encrypts the asset object.
         :return: void
         """
-        if isinstance(asset, Asset):
-            security_chip = None
+        if isinstance(asset_name, str):
+            asset_retrieved = False
             for asset in self.__inventory:
-                if asset.name == "Security Chip":
-                    security_chip = asset
-            if security_chip is not None:
-                asset.encrypted = True
+                if asset_name == asset.name and asset_retrieved == False:
+                    asset.encrypted = True
+                    asset_retrieved = True
+                    print(f"{asset} has been encrypted.\n")
+            if not asset_retrieved:
+                print(f"The asset, {asset_name} was not found.\n")
+        else:
+            print(f"The object is not an asset.\n")
 
-    def decrypt_asset(self, asset: Asset) -> None:
+    def decrypt_asset(self, asset_name: str) -> None:
         """
         This method decrypts the asset object.
         :return: void
         """
-        if isinstance(asset, Asset):
-            security_chip = None
+        if isinstance(asset_name, str):
+            asset_retrieved = False
             for asset in self.__inventory:
-                if asset.name == "Security Chip":
-                    security_chip = asset
-            if security_chip is not None:
-                asset.encrypted = False
+                if asset_name == asset.name and asset_retrieved == False:
+                    asset.encrypted = False
+                    asset_retrieved = True
+                    print(f"{asset} has been encrypted.\n")
+            if not asset_retrieved:
+                print(f"The asset, {asset_name} was not found.\n")
+        else:
+            print(f"The object is not an asset.\n")
 
-    def store_asset(self, asset: Asset) -> None:
+    def store_asset(self, asset_name: str) -> None:
         """
-        This method stores an asset in the Hacker inventory.
+        This method stores an asset in the Hacker inventory to the Hacker's rig.
         """
-        if isinstance(asset, Asset):
-            if self.__rig not in None:
-                if asset in self.__inventory:
-                    self.__rig.store_asset(asset)
-                    self.__inventory.remove(asset)
-                else:
-                    print(f"The asset is not in your inventory.")
+        if isinstance(asset_name, str):
+            if self.rig:
+                asset_retrieved = False
+                for asset in self.__inventory:
+                    if asset_name == asset.name and asset_retrieved == False:
+                        self.__inventory.remove(asset)
+                        self.rig.store_asset(asset)
+                        asset_retrieved = True
             else:
                 print(f"You do not have a Rig activated.")
         else:
             print(f"The object is not an asset.")
 
-    def retrieve_asset(self, asset: Asset) -> None:
+    def retrieve_asset(self, asset_name: str) -> None:
         """
-        This method retrieves an asset from the Hacker inventory.
+        This method retrieves an asset from the Hacker inventory from the Hacker's rig.
         """
-        if isinstance(asset, Asset):
-            if self.__rig not in None:
-                if asset in self.__rig.stored_assets:
-                    self.__rig.remove_asset(asset)
-                    self.__inventory.append(asset)
-                else:
-                    print(f"You do not have a Rig activated.")
+        if isinstance(asset_name, str):
+            asset_retrieved = False
+            if self.rig:
+                for asset in self.rig.storage:
+                    if asset_name == asset.name and asset_retrieved == False:
+                        self.rig.release_asset(asset)
+                        self.__inventory.append(asset)
+                        asset_retrieved = True
             else:
-                print(f"The asset is not in your inventory.")
+                print(f"You do not have a Rig activated.")
         else:
             print(f"The object is not an asset.")
 
@@ -177,16 +218,21 @@ class Hacker:
         :param target_rig:
         :return: void
         """
-        data_spike = None
-        for asset in self.__inventory:
-            if asset.name == "Data Spike":
-                data_spike = asset
-        if data_spike is not None:
-            if isinstance(target_rig, Rig):
-                target_rig.hit()
-                self.__inventory.remove(data_spike)
+        if isinstance(target_rig, Rig):
+            # The data spike must exist on the Rig to launch the attack
+            data_spike = None
+            for asset in self.rig.storage:
+                if asset.name == "Data Spike":
+                    data_spike = asset
+            if data_spike:
+                if isinstance(target_rig, Rig):
+                    target_rig.hit()
+                    self.rig.storage.remove(data_spike)
+                    self.increase_trace_level()
+            else:
+                print(f"There are no Data Spikes available.")
         else:
-            print(f"Target rig must be a Rig.")
+            print(f"The target of the attack must be a Rig.")
 
     def extract_assets(self, target_rig) -> None:
         """
@@ -194,18 +240,23 @@ class Hacker:
         """
         if isinstance(target_rig, Rig):
             if target_rig.broken_state:
-                for asset in target_rig.stored_assets:
+                for asset in target_rig.storage:
                     self.__inventory.append(asset)
-                    target_rig.remove_asset(asset)
+                    target_rig.release_asset(asset)
         else:
             print(f"Target rig must be a Rig.")
 
     def __str__(self):
-        return_string = (f"{self.__name}\nTrace level:{self.__trace_level}")
-        return_string += (f"\nRig:{self.__rig}")
-        return_string += (f"\nInventory contents:")
+        return_string = f"Hacker name: {self.__name}"
+        if isinstance(self.__rig, Rig):
+            return_string += f"\nRig: {self.__rig.name}"
+        else:
+            return_string += f"\nRig: None"
+        return_string += f"\nTrace level: {self.__trace_level}"
+        return_string += f"\nInventory contents: "
         for asset in self.__inventory:
-            return_string += f"\n{asset}\n"
+            return_string += f"\n\t{asset}"
+        return_string += f"\n"
         return return_string
 
     # Properties
@@ -216,4 +267,4 @@ class Hacker:
     trace_level = property(__get_trace_level, __set_trace_level)
     exposed = property(__get_exposed, __set_exposed)
     rig = property(__get_rig)
-    # inventory = property(__get_encrypted, __set_encrypted)
+    inventory = property(__get_inventory)

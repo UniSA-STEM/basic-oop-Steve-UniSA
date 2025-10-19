@@ -8,6 +8,7 @@ This is my own work as defined by the University's Academic Misconduct Policy.
 """
 import random
 
+
 class Asset:
     def __init__(self, name: str):
         """
@@ -67,7 +68,7 @@ class Asset:
         This method returns a random Asset name and is used to generate a random Asset.
         :return: str
         """
-        asset_name_index = random.randint(0,len(self.__valid_asset_names)-1)
+        asset_name_index = random.randint(0, len(self.__valid_asset_names) - 1)
         asset_name = self.__valid_asset_names[asset_name_index]
         return asset_name
 
