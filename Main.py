@@ -16,18 +16,33 @@ def test_create_hacker():
     hacker = Hacker("ZeroTrace")
     print(hacker)
 
+def test_hacker_exposed():
+    print("\n--- Test: Hacker Exposed ---")
+    # Instantiate target Rigs
+    rig1 = Rig("BigRig")
+    rig2 = Rig("RobsRig")
+    hacker = Hacker("ZeroTrace")
+    print(hacker)
+    hacker.acquire_rig("GhostRig")
+    hacker.rig.store_asset(Asset("Data Spike"))
+    hacker.rig.store_asset(Asset("Data Spike"))
+    hacker.rig.store_asset(Asset("Data Spike"))
+    print(hacker.rig)
+    hacker.launch_attack(rig1)
+    hacker.launch_attack(rig1)
+    hacker.launch_attack(rig1)
+    hacker.launch_attack(rig2)
+    hacker.launch_attack(rig2)
+    print(hacker)
 
-def test_increase_trace_level():
+
+def test_increase_decrease_trace_level():
     print("\n--- Test: increase trace level ---")
     hacker = Hacker("ZeroTrace")
     print(hacker)
     hacker.increase_trace_level()
     print(hacker)
-
-
-def test_decrease_trace_level():
-    print("\n--- Test: increase trace level ---")
-    hacker = Hacker("ZeroTrace")
+    hacker.decrease_trace_level()
     print(hacker)
     hacker.decrease_trace_level()
     print(hacker)
@@ -36,6 +51,7 @@ def test_decrease_trace_level():
 def test_acquire_rig():
     print("\n--- Test: Acquire Rig ---")
     hacker = Hacker("ZeroTrace")
+    print(hacker)
     hacker.acquire_rig("GhostRig")
     print(hacker)
     print(hacker.rig)
@@ -60,7 +76,14 @@ def test_retrieve_asset():
 
 
 def test_scan_inventory():
-    pass
+    print("\n--- Test: Scann Inventory---")
+    hacker = Hacker("ZeroTrace")
+    print(hacker)
+    token = hacker.scan_inventory("CryptoToken")
+    print(hacker)
+    print(token)
+    hacker.decrypt_asset("Hardware Patch")
+    print(hacker)
 
 
 def test_launch_attack():
@@ -82,10 +105,15 @@ def test_launch_attack():
 
 
 def test_extract_assets():
-    pass
+    hacker = Hacker("ZeroTrace")
+    hacker.acquire_rig("GhostRig")
+    target_rig = Rig("BigRig")
+    target_rig.broken_state = True
+    hacker.extract_assets(target_rig)
+    print(hacker)
+    print(target_rig)
 
-
-def test_store_remove_asset():
+def test_store_retrieve_asset():
     print("\n--- Test: Store Asset in Rig storage ---")
     hacker = Hacker("ZeroTrace")
     hacker.acquire_rig("GhostRig")
@@ -143,29 +171,31 @@ def test_generate_asset():
 
 
 # Test Asset class
-def test_create_asset():
-    pass
-
+def test_asset_class():
+    data_spike = Asset("Data Spike")
+    print(data_spike)
+    data_spike.encrypted = True
+    print(data_spike)
+    data_spike.encrypted = False
+    print(data_spike)
 
 if __name__ == "__main__":
-    # Test Hacker class
-    # test_create_hacker()
-    # test_increase_trace_level()
-    # test_decrease_trace_level()
-    # test_acquire_rig()
-    # test_encrypt_decrypt_asset()
-    # test_decrypt_asset()
-    # test_store_asset()
-    # test_retrieve_asset()
-    # test_scan_inventory()
-    # test_launch_attack()
-    # test_extract_assets()
+    # Test Asset class
+    #test_asset_class()
 
     # Test Rig class
     # test_hit_repair()
     # test_upgrade_rig()
     # test_generate_asset()
-    test_store_remove_asset()
+    # test_store_retrieve_asset()
 
-    # Test Asset class
-    # test_create_asset()
+    # Test Hacker class
+    # test_create_hacker()
+    # test_acquire_rig()
+    # test_increase_decrease_trace_level()
+    # test_hacker_exposed()
+    # test_encrypt_decrypt_asset()
+    # test_store_retrieve_asset() # Need to add this for the Hacker class
+    # test_scan_inventory()
+    test_extract_assets()
+

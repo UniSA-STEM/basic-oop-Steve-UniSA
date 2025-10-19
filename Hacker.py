@@ -59,7 +59,7 @@ class Hacker:
         if isinstance(name, str):
             self.__name = name
         else:
-            print(f"Hacker name must be a string.")
+            print(f"Hacker name must be a string.\n")
 
     def __set_trace_level(self, trace_level: int) -> None:
         """
@@ -67,7 +67,8 @@ class Hacker:
         """
         max_trace_level = 5
         self.__trace_level = trace_level
-        if self.__trace_level > max_trace_level:
+        if self.__trace_level >= max_trace_level:
+            print(f"You have been exposed\n")
             self.exposed = True
 
     def __set_exposed(self, exposed: bool) -> None:
@@ -77,7 +78,7 @@ class Hacker:
         if isinstance(exposed, bool):
             self.__exposed = exposed
         else:
-            print(f"Hacker exposed must be a boolean.")
+            print(f"Hacker exposed must be a boolean.\n")
 
     def add_asset(self, asset: Asset) -> None:
         """
@@ -86,7 +87,7 @@ class Hacker:
         if isinstance(asset, Asset):
             self.__inventory.append(asset)
         else:
-            print(f"Not a valid asset.")
+            print(f"Not a valid asset.\n")
 
     def increase_trace_level(self) -> None:
         """
@@ -100,7 +101,8 @@ class Hacker:
         This method decreases the Hacker trace level by one point.
         """
         current_trace_level = self.trace_level
-        self.trace_level = current_trace_level - 1
+        if current_trace_level >= 1:
+            self.trace_level = current_trace_level - 1
 
     def acquire_rig(self, rig) -> None:
         # Check that this hacker doesn't already have a rig
@@ -113,15 +115,15 @@ class Hacker:
                 if isinstance(rig, Rig):
                     self.__rig = rig
                     self.__inventory.remove(crypto_token)
-                    print(f"The rig {rig.name} has been activated.")
+                    print(f"The rig {rig.name} has been activated.\n")
                 elif isinstance(rig, str):
                     self.__rig = Rig(rig)
                     self.__inventory.remove(crypto_token)
-                    print(f"The rig {self.__rig.name} has been activated.")
+                    print(f"The rig {self.__rig.name} has been activated.\n")
                 else:
-                    print(f"The rig could not be activated.")
+                    print(f"The rig could not be activated.\n")
             else:
-                print(f"You do not have sufficient CryptoTokens.")
+                print(f"You do not have sufficient CryptoTokens.\n")
         else:
             print(f"You already have a Rig activated.")
 
@@ -172,9 +174,9 @@ class Hacker:
                         self.rig.store_asset(asset)
                         asset_retrieved = True
             else:
-                print(f"You do not have a Rig activated.")
+                print(f"You do not have a Rig activated.\n")
         else:
-            print(f"The object is not an asset.")
+            print(f"The object is not an asset.\n")
 
     def retrieve_asset(self, asset_name: str) -> None:
         """
@@ -189,9 +191,9 @@ class Hacker:
                         self.__inventory.append(asset)
                         asset_retrieved = True
             else:
-                print(f"You do not have a Rig activated.")
+                print(f"You do not have a Rig activated.\n")
         else:
-            print(f"The object is not an asset.")
+            print(f"The object is not an asset.\n")
 
     def scan_inventory(self, asset_name: str):
         """
@@ -206,10 +208,10 @@ class Hacker:
                 self.__inventory.remove(searched_asset)
                 return searched_asset
             else:
-                print(f"The asset is not in your inventory.")
+                print(f"The asset is not in your inventory.\n")
                 return None
         else:
-            print(f"The Asset name must be a string.")
+            print(f"The Asset name must be a string.\n")
             return None
 
     def launch_attack(self, target_rig: Rig) -> None:
@@ -230,9 +232,9 @@ class Hacker:
                     self.rig.storage.remove(data_spike)
                     self.increase_trace_level()
             else:
-                print(f"There are no Data Spikes available.")
+                print(f"There are no Data Spikes available.\n")
         else:
-            print(f"The target of the attack must be a Rig.")
+            print(f"The target of the attack must be a Rig.\n")
 
     def extract_assets(self, target_rig) -> None:
         """
@@ -240,11 +242,10 @@ class Hacker:
         """
         if isinstance(target_rig, Rig):
             if target_rig.broken_state:
-                for asset in target_rig.storage:
-                    self.__inventory.append(asset)
-                    target_rig.release_asset(asset)
+                while target_rig.storage:
+                    self.__inventory.append(target_rig.storage.pop(0))
         else:
-            print(f"Target rig must be a Rig.")
+            print(f"Target rig must be a Rig.\n")
 
     def __str__(self):
         return_string = f"Hacker name: {self.__name}"

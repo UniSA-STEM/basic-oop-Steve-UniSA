@@ -59,9 +59,9 @@ class Asset:
                 self.__name = name
                 self.__description = self.__asset_descriptions[self.__valid_asset_names.index(name)]
             else:
-                print(f"The asset {name} is not a valid asset type.")
+                print(f"The asset {name} is not a valid asset type.\n")
         else:
-            print(f"Hacker name must be a string.")
+            print(f"Hacker name must be a string.\n")
 
     def __get_random_name(self) -> str:
         """
@@ -81,7 +81,7 @@ class Asset:
         if isinstance(encrypted, bool):
             self.__encrypted = encrypted
         else:
-            print(f"The encryption status of {encrypted} is not valid.")
+            print(f"The encryption status of {encrypted} is not valid.\n")
 
     def __str__(self) -> str:
         """
