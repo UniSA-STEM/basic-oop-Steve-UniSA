@@ -8,7 +8,7 @@ This is my own work as defined by the University's Academic Misconduct Policy.
 """
 from Asset import Asset
 from Rig import Rig
-
+import math
 
 class Hacker:
     def __init__(self, name: str) -> None:
@@ -187,9 +187,12 @@ class Hacker:
             if self.rig:
                 for asset in self.rig.storage:
                     if asset_name == asset.name and asset_retrieved == False:
-                        self.rig.release_asset(asset)
-                        self.__inventory.append(asset)
-                        asset_retrieved = True
+                        if not asset.encrypted:
+                            self.rig.release_asset(asset)
+                            self.__inventory.append(asset)
+                            asset_retrieved = True
+                        else:
+                            print(f"The asset {asset} is encrypted.\n")
             else:
                 print(f"You do not have a Rig activated.\n")
         else:
@@ -220,21 +223,26 @@ class Hacker:
         :param target_rig:
         :return: void
         """
-        if isinstance(target_rig, Rig):
-            # The data spike must exist on the Rig to launch the attack
-            data_spike = None
-            for asset in self.rig.storage:
-                if asset.name == "Data Spike":
-                    data_spike = asset
-            if data_spike:
-                if isinstance(target_rig, Rig):
-                    target_rig.hit()
-                    self.rig.storage.remove(data_spike)
-                    self.increase_trace_level()
+        if not self.exposed:
+            if isinstance(target_rig, Rig):
+                # The data spike must exist on the Rig to launch the attack
+                data_spike = None
+                for asset in self.rig.storage:
+                    if asset.name == "Data Spike":
+                        data_spike = asset
+                if data_spike:
+                    if isinstance(target_rig, Rig):
+                        if self.rig.upgrade_level > 3:
+                            for attacks in range(0, math.floor(self.rig.upgrade_level / 3)):
+                                target_rig.hit()
+                        self.rig.storage.remove(data_spike)
+                        self.increase_trace_level()
+                else:
+                    print(f"There are no Data Spikes available.\n")
             else:
-                print(f"There are no Data Spikes available.\n")
+                print(f"The target of the attack must be a Rig.\n")
         else:
-            print(f"The target of the attack must be a Rig.\n")
+            print(f"You have been exposed as a hacker and cannot launch attacks.")
 
     def extract_assets(self, target_rig) -> None:
         """
@@ -242,8 +250,15 @@ class Hacker:
         """
         if isinstance(target_rig, Rig):
             if target_rig.broken_state:
+                encrypted_assets = []
                 while target_rig.storage:
-                    self.__inventory.append(target_rig.storage.pop(0))
+                    asset = target_rig.storage.pop()
+                    if not asset.encrypted:
+                        self.__inventory.append(asset)
+                    else:
+                        encrypted_assets.append(asset)
+                for asset in encrypted_assets:
+                    target_rig.storage.append(asset)
         else:
             print(f"Target rig must be a Rig.\n")
 

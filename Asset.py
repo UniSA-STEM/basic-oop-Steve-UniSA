@@ -86,7 +86,7 @@ class Asset:
     def __str__(self) -> str:
         """
         The string conversion method returns the asset name, description and encryption status.
-        :return: str
+        :return: strS
         """
         return f"{self.__name}: {self.__description} {"Encrypted" if self.__encrypted else ""}"
 

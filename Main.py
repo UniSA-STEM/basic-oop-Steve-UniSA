@@ -80,20 +80,23 @@ def test_scan_inventory():
 
 def test_launch_attack():
     print("\n--- Test: Launch Attack ---")
-    # Instantiate Hackers
-    hacker1 = Hacker("ZeroTrace")
-    hacker1.acquire_rig("BigRig")
-    print(hacker1)
+    hacker = Hacker("ZeroTrace")
+    hacker.acquire_rig("GhostRig")
 
-    # Instantiate Rigs
-    rig1 = Rig("RobsRig")
-    print(rig1)
+    target_rig = Rig("BigRig")
 
-    hacker1.launch_attack(rig1)
-    print(rig1)
-    hacker1.launch_attack(rig1)
-    print(rig1)
-    print(hacker1.rig)
+    for i in range(0,6):
+        hacker.rig.store_asset(Asset("Hardware Patch"))
+
+    for j in range(0,6):
+        hacker.rig.upgrade()
+
+    print(hacker)
+    print(hacker.rig)
+
+    hacker.launch_attack(target_rig)
+
+    print(target_rig)
 
 
 def test_extract_assets():
@@ -102,6 +105,9 @@ def test_extract_assets():
     hacker.acquire_rig("GhostRig")
     target_rig = Rig("BigRig")
     target_rig.broken_state = True
+    encrypted_asset = Asset("Security Chip")
+    encrypted_asset.encrypted = True
+    target_rig.store_asset(encrypted_asset)
     hacker.extract_assets(target_rig)
     print(hacker)
     print(target_rig)
@@ -114,10 +120,13 @@ def test_store_retrieve_asset():
     print(hacker.rig)
     hacker.rig.store_asset(Asset("Security Chip"))
     print(hacker.rig)
-    hacker.retrieve_asset("Security Chip")
+    hacker.encrypt_asset("Removable Drive")
+    hacker.retrieve_asset("Removable Drive")
+    hacker.decrypt_asset("Removable Drive")
+    hacker.retrieve_asset("Removable Drive")
     print(hacker.rig)
     print(hacker)
-    hacker.store_asset("Security Chip")
+    hacker.store_asset("Removable Drive")
     print(hacker)
     print(hacker.rig)
 
@@ -175,7 +184,7 @@ def test_asset_class():
 
 if __name__ == "__main__":
     # Test Asset class
-    test_asset_class()
+    # test_asset_class()
 
     # Test Rig class
     # test_hit_repair()
@@ -189,7 +198,7 @@ if __name__ == "__main__":
     # test_increase_decrease_trace_level()
     # test_hacker_exposed()
     # test_encrypt_decrypt_asset()
-    # test_store_retrieve_asset() # Need to add this for the Hacker class
     # test_scan_inventory()
     # test_extract_assets()
+    test_launch_attack()
 
